@@ -1,10 +1,10 @@
 import { ICar } from 'src/types/cars';
-import httpClient from 'src/services/httpClient';
+import axiosInstance from 'src/services/axiosInstance';
 
 export const getCars = async (): Promise<ICar[]> => {
   try {
-    const { data } = await httpClient.get('cars');
-    return data;
+    const { data } = await axiosInstance.get('cars');
+    return JSON.parse(data);
   } catch (error) {
     return [];
   }
@@ -13,7 +13,7 @@ export const getCars = async (): Promise<ICar[]> => {
 export const getCar = async (carId?: string | string[]): Promise<ICar | string> => {
   try {
     if (!carId) return 'Car not found';
-    const { data } = await httpClient.get('cars');
+    const { data } = await axiosInstance.get('cars');
 
     const carData = JSON.parse(data).find((car: ICar) => car.id === carId);
     if (!!carData) return 'Car not found';

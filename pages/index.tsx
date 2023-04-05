@@ -1,21 +1,31 @@
-import React from 'react';
+import { Spinner, View, Block, Flex } from 'vcc-ui';
 import { NextPage } from 'next';
 import { ICar } from '@src/types/cars';
 import { getCars } from './api/carsRequests';
+import { Virtual, Pagination, Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import Carousel from '@src/components/Carousel';
 
 interface IProps {
   cars: ICar[];
-  filterOptions: [];
+  bodyTypes: [];
 }
 
-const LandingPage: NextPage<IProps> = ({ cars, filterOptions }) => {
-  if (!cars.length) return <h1>Spinner</h1>;
+const LandingPage: NextPage<IProps> = ({ cars, bodyTypes }) => {
+  if (!cars.length) return <Spinner />;
+
+  const otherProps = {
+    pagination: { clickable: true },
+  };
+
   return (
-    <div>
-      <h1>CARS</h1>
-      {/* {console.log(cars)} */}
-      {/* {JSON.stringify(cars, null, 2)} */}
-    </div>
+    <Block className='container'>
+      <Block className='cars-wrapper'>
+        <Carousel items={cars} />
+      </Block>
+    </Block>
   );
 };
 
@@ -24,7 +34,7 @@ export async function getServerSideProps() {
   return {
     props: {
       cars,
-      filterOptions: cars.map((car: ICar) => car.bodyType),
+      bodyTypes: cars.map((car: ICar) => car.bodyType),
     },
   };
 }

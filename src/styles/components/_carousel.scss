@@ -1,0 +1,37 @@
+.carousel-wrapper {
+    width: 100%;
+
+    .swiper-pagination-bullet-active {
+        background-color: #000 !important;
+    }
+
+    .swiper-pagination {
+        position: static !important;
+        margin-top: 4rem !important;
+        display: none;
+
+        @include lgMaxBreakPoint {
+            display: block;
+        }
+    }
+
+    .carousel-controls {
+        margin-top: 2rem;
+        justify-content: flex-end;
+        gap: 1.5rem;
+
+        .previous-icon,
+        .next-icon {
+            cursor: pointer;
+        }
+
+        .previous-icon {
+            transform: rotate(180deg);
+            margin-right: 3rem
+        }
+
+        .control-disabled {
+            opacity: 0.4
+        }
+    }
+}

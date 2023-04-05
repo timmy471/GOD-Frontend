@@ -7,7 +7,7 @@ interface IProps {
   car: ICar;
 }
 
-const Car: NextPage<IProps> = ({ car }) => {
+const Learn: NextPage<IProps> = ({ car }) => {
   return <div>Car</div>;
 };
 
@@ -21,4 +21,4 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
   };
 };
 
-export default Car;
+export default Learn;
