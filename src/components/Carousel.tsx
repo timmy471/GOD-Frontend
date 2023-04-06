@@ -1,9 +1,10 @@
 import 'swiper/css';
+import { Block } from 'vcc-ui';
 import 'swiper/css/pagination';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Block, Flex } from 'vcc-ui';
 import { ICar } from '@src/types/cars';
+import CarouselCard from './CarouselCard';
 import { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -21,7 +22,7 @@ const Carousel: React.FC<IProps> = ({ items }) => {
     if (activeIndex === 0) {
       setDisablePrevious(true);
       setDisableNext(false);
-    } else if (activeIndex === 10 - MAXITEMSTODISPLAY) {
+    } else if (activeIndex === items?.length - MAXITEMSTODISPLAY) {
       setDisableNext(true);
       setDisablePrevious(false);
     } else {
@@ -30,11 +31,31 @@ const Carousel: React.FC<IProps> = ({ items }) => {
     }
   };
 
+  const carouselBreakPoints = {
+    320: {
+      slidesPerView: 1.4,
+      spaceBetween: 20,
+    },
+    480: {
+      slidesPerView: 2.6,
+      spaceBetween: 20,
+    },
+    768: {
+      slidesPerView: 2.6,
+      spaceBetween: 20,
+    },
+    1024: {
+      slidesPerView: MAXITEMSTODISPLAY,
+      spaceBetween: 22,
+    },
+  };
+
   return (
     <Block className='carousel-wrapper'>
       <Swiper
         pagination={{ clickable: true }}
         onSlideChange={({ activeIndex }) => handleSlideChange(activeIndex)}
+        modules={[Pagination, Navigation]}
         keyboard={{
           enabled: true,
           onlyInViewport: false,
@@ -44,34 +65,15 @@ const Carousel: React.FC<IProps> = ({ items }) => {
           nextEl: '.next-icon',
           prevEl: '.previous-icon',
         }}
-        breakpoints={{
-          480: {
-            slidesPerView: 1.4,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 2.4,
-            spaceBetween: 20,
-          },
-          1024: {
-            slidesPerView: MAXITEMSTODISPLAY,
-            spaceBetween: 22,
-          },
-        }}
-        modules={[Pagination, Navigation]}>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 1</SwiperSlide>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 3</SwiperSlide>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 3</SwiperSlide>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 3</SwiperSlide>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 3</SwiperSlide>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 3</SwiperSlide>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 3</SwiperSlide>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 3</SwiperSlide>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 3</SwiperSlide>
-        <SwiperSlide style={{ border: '1px solid red' }}>Slide 10</SwiperSlide>
+        breakpoints={carouselBreakPoints}>
+        {items.map((car: ICar) => (
+          <SwiperSlide key={car.id}>
+            <CarouselCard {...car} />
+          </SwiperSlide>
+        ))}
       </Swiper>
       {items?.length > MAXITEMSTODISPLAY && (
-        <Flex className='carousel-controls'>
+        <Block className='carousel-controls d-flex'>
           <Image
             src={'/images/chevron-circled.svg'}
             width={40}
@@ -90,7 +92,7 @@ const Carousel: React.FC<IProps> = ({ items }) => {
             className={`next-icon ${disableNext ? 'control-disabled' : ''}`}
             role='button'
           />
-        </Flex>
+        </Block>
       )}
     </Block>
   );

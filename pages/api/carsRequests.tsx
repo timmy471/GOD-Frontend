@@ -16,9 +16,9 @@ export const getCar = async (carId?: string | string[]): Promise<ICar | string> 
     const { data } = await axiosInstance.get('cars');
 
     const carData = JSON.parse(data).find((car: ICar) => car.id === carId);
-    if (!!carData) return 'Car not found';
+    if (!!carData) return carData;
 
-    return carData;
+    return 'Car not found';
   } catch (error) {
     return 'Something went wrong';
   }

@@ -8,12 +8,12 @@ interface IProps {
   car: ICar;
 }
 
-const Learn: NextPage<IProps> = ({ car }) => {
+const Shop: NextPage<IProps> = ({ car }) => {
   return (
     <Block className='container'>
       <Block className='d-flex cars-wrapper'>
-        <Text>LEARN ABOUT {car.id}</Text>
-        <View maxWidth='280' marginLeft={'3'}>
+        <Text>SHOP FOR {car.id}</Text>
+        <View maxWidth='280' marginLeft={3}>
           <Link href='/'>
             <Button>Go Back</Button>
           </Link>
@@ -33,4 +33,4 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
   };
 };
 
-export default Learn;
+export default Shop;

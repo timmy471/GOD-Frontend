@@ -16,9 +16,10 @@
     }
 
     .carousel-controls {
-        margin-top: 2rem;
+        margin-top: 3rem;
         justify-content: flex-end;
-        gap: 1.5rem;
+        gap: 1rem;
+        width: 100%;
 
         .previous-icon,
         .next-icon {
@@ -32,6 +33,10 @@
 
         .control-disabled {
             opacity: 0.4
+        }
+
+        @include lgMaxBreakPoint {
+            display: none;
         }
     }
 }

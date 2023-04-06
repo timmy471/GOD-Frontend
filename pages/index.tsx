@@ -22,7 +22,7 @@ const LandingPage: NextPage<IProps> = ({ cars, bodyTypes }) => {
 
   return (
     <Block className='container'>
-      <Block className='cars-wrapper'>
+      <Block className='d-flex cars-wrapper'>
         <Carousel items={cars} />
       </Block>
     </Block>
