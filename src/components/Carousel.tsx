@@ -1,6 +1,7 @@
 import 'swiper/css';
 import { Block } from 'vcc-ui';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import Image from 'next/image';
 import { useState } from 'react';
 import { ICar } from '@src/types/cars';
@@ -12,11 +13,12 @@ interface IProps {
   items: ICar[];
 }
 
-const Carousel: React.FC<IProps> = ({ items }) => {
-  const [disableNext, setDisableNext] = useState(false);
-  const [disablePrevious, setDisablePrevious] = useState(true);
+const MAXITEMSTODISPLAY = 4;
 
-  const MAXITEMSTODISPLAY = 4;
+const Carousel: React.FC<IProps> = ({ items }) => {
+  const [disableNext, setDisableNext] = useState<boolean>(false);
+  const [disablePrevious, setDisablePrevious] = useState<boolean>(true);
+  const [carousel, setCarousel] = useState<any>({});
 
   const handleSlideChange = (activeIndex: number) => {
     if (activeIndex === 0) {
@@ -54,16 +56,15 @@ const Carousel: React.FC<IProps> = ({ items }) => {
     <Block className='carousel-wrapper'>
       <Swiper
         pagination={{ clickable: true }}
+        onInit={(ev) => {
+          setCarousel(ev);
+        }}
         onSlideChange={({ activeIndex }) => handleSlideChange(activeIndex)}
         modules={[Pagination, Navigation]}
         keyboard={{
           enabled: true,
           onlyInViewport: false,
           pageUpDown: true,
-        }}
-        navigation={{
-          nextEl: '.next-icon',
-          prevEl: '.previous-icon',
         }}
         breakpoints={carouselBreakPoints}>
         {items.map((car: ICar) => (
@@ -80,6 +81,7 @@ const Carousel: React.FC<IProps> = ({ items }) => {
             height={40}
             tabIndex={0}
             alt='previous'
+            onClick={() => carousel.slidePrev()}
             className={`previous-icon ${disablePrevious ? 'control-disabled' : ''}`}
             role='button'
           />
@@ -89,6 +91,7 @@ const Carousel: React.FC<IProps> = ({ items }) => {
             height={40}
             tabIndex={0}
             alt='next'
+            onClick={() => carousel.slideNext()}
             className={`next-icon ${disableNext ? 'control-disabled' : ''}`}
             role='button'
           />

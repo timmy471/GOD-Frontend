@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import React from 'react';
+import { Block, Text } from 'vcc-ui';
 import { ICar } from '@src/types/cars';
-import { Block, Text, Link as VCCLink } from 'vcc-ui';
 
 const CarCard: React.FC<ICar> = ({ modelType, modelName, bodyType, imageUrl, id }) => {
   return (
@@ -25,12 +24,19 @@ const CarCard: React.FC<ICar> = ({ modelType, modelName, bodyType, imageUrl, id 
         </Block>
       </Link>
       <Block className='d-flex learn-shop-link'>
-        <VCCLink href={`/learn/${id}`} arrow='right'>
-          Learn
-        </VCCLink>
-        <VCCLink href={`/shop/${id}`} arrow='right'>
-          Shop
-        </VCCLink>
+        <Link href={`/learn/${id}`}>
+          <Block className='d-flex icon-link'>
+            <Text className='arrow-text'>LEARN</Text>
+            <img src={'/images/chevron-small.svg'} width={12} />
+          </Block>
+        </Link>
+
+        <Link href={`/shop/${id}`}>
+          <Block className='d-flex icon-link'>
+            <Text className='arrow-text'>SHOP</Text>
+            <img src={'/images/chevron-small.svg'} width={12} />
+          </Block>
+        </Link>
       </Block>
     </Block>
   );

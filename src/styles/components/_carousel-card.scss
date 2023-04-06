@@ -7,12 +7,7 @@
             .car-type,
             .model-name,
             .model-type {
-                color: $text-primary
-            }
-
-            .car-image {
-                transform: scale(1.1);
-                transition: transform 0.3s,
+                color: $volvo-primary-color
             }
         }
     }
@@ -21,6 +16,16 @@
         overflow: hidden;
         max-height: 220px;
 
+        .car-image {
+            transform: scale(1.1);
+            transition: transform 0.3s;
+
+            @include mdMaxBreakPoint {
+                height: 140px
+            }
+
+        }
+
         @include mdMaxBreakPoint {
             max-height: 140px
         }
@@ -28,7 +33,7 @@
 
     .car-type {
         font-weight: 700;
-        color: $text-fade;
+        color: $volvo-fade-color;
         font-size: 13px;
     }
 
@@ -47,7 +52,7 @@
     }
 
     .model-type {
-        color: $text-fade;
+        color: $volvo-fade-color;
         font-size: 16px;
         margin-bottom: 1rem;
     }
@@ -59,7 +64,18 @@
     }
 
     .learn-shop-link {
-        justify-content: space-evenly;
-        margin-top: 1rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+        gap: 1.5rem;
+
+        .icon-link {
+            gap: .5rem
+        }
+
+        .arrow-text {
+            font-size: 14px;
+            color: $volvo-primary-color;
+            font-weight: bold
+        }
     }
 }

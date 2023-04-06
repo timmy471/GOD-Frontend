@@ -1,9 +1,8 @@
 import Link from 'next/link';
+import { Block, Text } from 'vcc-ui';
 import { ICar } from '@src/types/cars';
 import { getCar } from 'pages/api/carsRequests';
-import { Block, Text, Button, View } from 'vcc-ui';
 import { GetServerSideProps, NextPage } from 'next';
-
 interface IProps {
   car: ICar;
 }
@@ -11,13 +10,9 @@ interface IProps {
 const Learn: NextPage<IProps> = ({ car }) => {
   return (
     <Block className='container'>
-      <Block className='d-flex cars-wrapper'>
+      <Block className='car-detail'>
         <Text>LEARN ABOUT {car.id}</Text>
-        <View maxWidth='280' marginLeft={'3'}>
-          <Link href='/'>
-            <Button>Go Back</Button>
-          </Link>
-        </View>
+        <Link href='/'>Go Back</Link>
       </Block>
     </Block>
   );
@@ -25,6 +20,7 @@ const Learn: NextPage<IProps> = ({ car }) => {
 
 export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
   const carId = query.id;
+
   const car = await getCar(carId);
   return {
     props: {
