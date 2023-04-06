@@ -1,16 +1,23 @@
 import Link from 'next/link';
+import IconText from './IconText';
 import { Block, Text } from 'vcc-ui';
 import { ICar } from '@src/types/cars';
 
 const CarCard: React.FC<ICar> = ({ modelType, modelName, bodyType, imageUrl, id }) => {
   return (
-    <Block className='carousel-card'>
+    <Block className='carousel-card' tabIndex={0}>
       <Link href={`/learn/${id}`}>
         <Block className='carousel-card-inner'>
-          <Text className='car-type'>{bodyType.toUpperCase()}</Text>
+          <Text className='car-type' tabIndex={-1}>
+            {bodyType.toUpperCase()}
+          </Text>
           <Block className='model-name-wrapper d-flex'>
-            <Text className='model-name'>{modelName}</Text>
-            <Text className='model-type'>{modelType}</Text>
+            <Text className='model-name' tabIndex={-1}>
+              {modelName}
+            </Text>
+            <Text className='model-type' tabIndex={-1}>
+              {modelType}
+            </Text>
           </Block>
           <Block className='car-image-wrapper'>
             <img
@@ -25,17 +32,14 @@ const CarCard: React.FC<ICar> = ({ modelType, modelName, bodyType, imageUrl, id 
       </Link>
       <Block className='d-flex learn-shop-link'>
         <Link href={`/learn/${id}`}>
-          <Block className='d-flex icon-link'>
-            <Text className='arrow-text'>LEARN</Text>
-            <img src={'/images/chevron-small.svg'} width={12} />
-          </Block>
+          <IconText
+            label='LEARN'
+            icon={<img src={'/images/chevron-small.svg'} width={12} />}
+          />
         </Link>
 
         <Link href={`/shop/${id}`}>
-          <Block className='d-flex icon-link'>
-            <Text className='arrow-text'>SHOP</Text>
-            <img src={'/images/chevron-small.svg'} width={12} />
-          </Block>
+          <IconText label='SHOP' icon={<img src={'/images/chevron-small.svg'} width={12} />} />
         </Link>
       </Block>
     </Block>
